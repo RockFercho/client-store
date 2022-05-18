@@ -1,13 +1,19 @@
 
 import React, { useState} from 'react';
 import axios from 'axios';
+
+import TextField from '@mui/material/TextField';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+
 import { URL_SERVER, URL_SERVER_PRODUCTO } from '../../global';
 
 export default function GetProduct() {
 
   const [nombre, setNombre] =  useState('');
   const [precio, setPrecio] =  useState(0);
-  const [vencimiento, setVencimiento] =  useState('');
+  const [vencimiento, setVencimiento] =  useState(null);
 
   const handleSubmit = (e) => {
 
@@ -21,11 +27,11 @@ export default function GetProduct() {
       .then( (res) => {
         setNombre('');
         setPrecio(0);
-        setVencimiento('');
-        <p>Se guardo exitosamente</p>
+        setVencimiento(null);
+        alert("Se guardo exitosamente");
       })
       .catch(err => {
-        <p>Error al guardar</p>
+        alert("Error al guardar");
         console.log('errr', err);
       })
       e.preventDefault();
@@ -59,10 +65,15 @@ export default function GetProduct() {
           <div>
             <label>
               VENCIMIENTO:
-              <input type="text"
-                    value={vencimiento} 
-                    onChange={e => setVencimiento(e.target.value)}
-              />
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  value={vencimiento}
+                  onChange={(newValue) => {
+                    setVencimiento(newValue);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                />
+              </LocalizationProvider>
             </label>
           </div>
           <input type="submit" value="Guardar" />`
