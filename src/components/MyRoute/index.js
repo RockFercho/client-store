@@ -6,11 +6,10 @@ import {
 
 import Nav from "../Nav";
 import Home from "../Home";
-import Contact from "../Contact";
-import About from "../About";
 import NotFound from '../NotFound';
 import GetProduct from '../GetProduct';
 import GuardarProducto from '../GuardarProducto'
+import EditarProducto from '../EditarProducto'
 
 function MyRoute() {
   return (
@@ -20,10 +19,9 @@ function MyRoute() {
 
         <Routes>
           <Route path="/" exact element={<Home/>} />
-          <Route path="/about" element={<About/>} />
           <Route path="/listaproducto" element={<GetProduct/>} />
           <Route path="/guardarproducto" element={<GuardarProducto/>} />
-          <Route path="/contact/:country" element={<Contact/>} />
+          <Route path="/editarproducto" element={<EditarProducto/>} />
           <Route path="*" element={<NotFound/>} />
         </Routes>
       </Router>

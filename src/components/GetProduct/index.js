@@ -8,7 +8,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-
+import { format } from 'date-fns'
 import { URL_SERVER, URL_SERVER_PRODUCTO } from '../../global';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -51,11 +51,32 @@ export default function GetProduct() {
       })
       e.preventDefault();
   }
-  
-  useEffect( () => {
+
+  const getAllProduct = () => {
     axios.get(URL_SERVER + URL_SERVER_PRODUCTO).then((res) => {
       setProduct(res.data.body);
-    })
+    });
+  }
+
+  const accionEliminar = (id) => {
+    axios
+      .delete(URL_SERVER + URL_SERVER_PRODUCTO + `/${id}`)
+        .then((res) => {
+          alert("Se elimino el producto");
+          getAllProduct();
+        })
+        . catch( err => {
+          alert("Error :" + err);
+        })
+  }
+
+  const accionEditar = (row) => {
+    console.log("****************************");
+    console.log(row);
+  }
+  
+  useEffect( () => {
+    getAllProduct();
   }, []);
 
 
@@ -93,7 +114,11 @@ export default function GetProduct() {
                     {row.nombre}
                   </StyledTableCell>
                   <StyledTableCell align="right">{row.precio}</StyledTableCell>
-                  <StyledTableCell align="right">{row.vencimiento}</StyledTableCell>
+                  <StyledTableCell align="right">{format(new Date(row.vencimiento), 'dd/MMM/yyyy')}</StyledTableCell>
+                  <StyledTableCell align="right">
+                    <button onClick={(e) => accionEditar(row)}>Editar</button>
+                    <button onClick={(e) => accionEliminar(row.id)}>Eliminar</button>
+                  </StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
