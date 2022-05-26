@@ -1,4 +1,5 @@
 import React, { useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -36,6 +37,8 @@ export default function GetProduct() {
   const [product, setProduct] =  useState([]);
   const [valueBuscar, setValueBuscar] =  useState();
 
+  let navigate = useNavigate();
+
   const handleSubmit = (e) => {
     axios
       .get(URL_SERVER + URL_SERVER_PRODUCTO, 
@@ -71,8 +74,10 @@ export default function GetProduct() {
   }
 
   const accionEditar = (row) => {
-    console.log("****************************");
-    console.log(row);
+    navigate({
+      pathname: '/editarproducto',
+      search: `?id=${row.id}`
+    });
   }
   
   useEffect( () => {
