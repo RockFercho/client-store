@@ -8,8 +8,9 @@ import Nav from "../Nav";
 import Home from "../Home";
 import NotFound from '../NotFound';
 import GetProduct from '../GetProduct';
-import GuardarProducto from '../GuardarProducto'
-import EditarProducto from '../EditarProducto'
+import GuardarProducto from '../GuardarProducto';
+import EditarProducto from '../EditarProducto';
+import Login from '../Login'
 
 function MyRoute() {
   return (
@@ -18,6 +19,7 @@ function MyRoute() {
         <Nav />
 
         <Routes>
+          <Route path="/login" exact element={<Login/>} />
           <Route path="/" exact element={<Home/>} />
           <Route path="/listaproducto" element={<GetProduct/>} />
           <Route path="/guardarproducto" element={<GuardarProducto/>} />
