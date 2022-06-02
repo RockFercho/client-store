@@ -21,10 +21,9 @@ export default function Login() {
       .then( (res) => {
         setUsuario('');
         setPassword('');
-        console.log('respons login', res);
+        localStorage.setItem('token', res.data)
         navigate('/');
-        
-        alert("Siiip");
+        alert("Se conecto correctamente");
       })
       .catch(err => {
         alert("Error de credenciales");
