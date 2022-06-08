@@ -1,5 +1,6 @@
 
-import React, { useState} from 'react';
+import React, { useEffect, useState} from 'react';
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
 import TextField from '@mui/material/TextField';
@@ -8,12 +9,15 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 import { URL_SERVER, URL_SERVER_PRODUCTO } from '../../global';
+import { session } from '../../globalFuncionts'
 
 export default function GetProduct() {
 
   const [nombre, setNombre] =  useState('');
   const [precio, setPrecio] =  useState(0);
   const [vencimiento, setVencimiento] =  useState(null);
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
 
@@ -36,6 +40,12 @@ export default function GetProduct() {
       })
       e.preventDefault();
   }
+
+  useEffect( () => {
+    if (!session()) {
+      navigate('/login');
+    }
+  }, []);
 
   return (
     <div>

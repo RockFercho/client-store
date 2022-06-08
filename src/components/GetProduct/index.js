@@ -11,6 +11,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { format } from 'date-fns'
 import { URL_SERVER, URL_SERVER_PRODUCTO } from '../../global';
+import { session } from '../../globalFuncionts'
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -79,8 +80,11 @@ export default function GetProduct() {
       search: `?id=${row.id}`
     });
   }
-  
+
   useEffect( () => {
+    if (!session()) {
+      navigate('/login');
+    }
     getAllProduct();
   }, []);
 

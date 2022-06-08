@@ -1,5 +1,4 @@
 import React, { useState}  from 'react';
-import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import { URL_SERVER, URL_SERVER_LOGIN } from '../../global';
@@ -8,8 +7,6 @@ export default function Login() {
 
   const [usuario, setUsuario] =  useState('');
   const [password, setPassword] =  useState('');
-
-  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     axios
@@ -22,8 +19,8 @@ export default function Login() {
         setUsuario('');
         setPassword('');
         localStorage.setItem('token', res.data)
-        navigate('/');
         alert("Se conecto correctamente");
+        window.location = '/'
       })
       .catch(err => {
         alert("Error de credenciales");
